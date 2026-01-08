@@ -1,53 +1,58 @@
 import { useState } from 'react'
 import Header from './components/Header'
+import HabitList from './components/HabitList'
 
 function App() {
 	const [habits, setHabits] = useState([])
+	const [title, setTitle] = useState('')
 
-	const addHabit = () => {
+	const toggleHabit = (id) => {
+		setHabits(habits.map(habit => 
+			habit.id === id
+				? { ...habit, completed: !habit.completed }
+				: habit
+		))
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		if(!title.trim()) return
+
 		setHabits([
 			...habits,
 			{
 				id: crypto.randomUUID(),
-				title: 'Новая привычка',
+				title: title.trim(),
 				completed: false
 			}
 		])
-	}
 
-	const toggleHabit = (id) => {
-		setHabits(habits.map(habit => {
-			if (habit.id !== id) {
-				return habit
-			}
-			
-			return {
-				...habit,
-				completed: !habit.completed
-			}
-		}))
-
+		setTitle('')
 	}
 
 	return (
 		<div>
 			<Header />
-			
-			<ul>
-				{habits.map(habit => (
-					<li
-						key={habit.id}
-						onClick={() => toggleHabit(habit.id)}
-						style={{ cursor: 'pointer' }}
-					>
-						{habit.title} - {habit.completed ? '✅' : '❌'}
-					</li>
-				))}
-			</ul>
 
-			<button onClick={addHabit}>
-				Добавить привычку
-			</button>
+			<form onSumbit={handleSubmit}>
+				<input
+					type="text"
+					value={title}
+					onChange={(e) => setTitle(e.target.value)}
+					placeholder="Новая привычка"
+				/>
+				<button
+					type="submit"
+					onClick={handleSubmit}
+				>
+					Добавить
+				</button>
+			</form>
+
+			<HabitList
+				habits={habits}
+				onToggle={toggleHabit}
+			/>
 		</div>
 	)
 }
