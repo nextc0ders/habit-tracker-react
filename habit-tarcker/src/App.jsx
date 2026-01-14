@@ -1,17 +1,33 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import HabitList from './components/HabitList'
 
 function App() {
-	const [habits, setHabits] = useState([])
+	const [habits, setHabits] = useState(() => {
+		const saved = localStorage.getItem('habits')
+		return saved ? JSON.parse(saved) : []
+	})
 	const [title, setTitle] = useState('')
 
+	useEffect(() => {
+		localStorage.setItem('habits', JSON.stringify(habits))
+	}, habits)
+
 	const toggleHabit = (id) => {
-		setHabits(habits.map(habit => 
-			habit.id === id
-				? { ...habit, completed: !habit.completed }
-				: habit
-		))
+		const date = today()
+
+		setHabits(habits.map(habit => {
+			if (habit.id !== id) return habit
+
+			const doneToday = habit.completedDates.includes(date)
+
+			return {
+				...habit,
+				completedDates: doneToday
+					? habit.completedDates.filter(d => d !== date)
+					: [...habit.completedDates, date]
+			}
+		}))
 	}
 
 	const handleSubmit = (e) => {
@@ -23,18 +39,22 @@ function App() {
 			{
 				id: crypto.randomUUID(),
 				title: title.trim(),
-				completed: false
+				completedDates: []
 			}
 		])
 
 		setTitle('')
 	}
 
+	const today = () => {
+		return new Date().toISOString().slice(0, 10)
+	}
+
 	return (
 		<div>
 			<Header />
 
-			<form onSumbit={handleSubmit}>
+			<form onSubmit={handleSubmit}>
 				<input
 					type="text"
 					value={title}
@@ -43,7 +63,7 @@ function App() {
 				/>
 				<button
 					type="submit"
-					onClick={handleSubmit}
+					// onClick={handleSubmit}
 				>
 					Добавить
 				</button>
