@@ -6,6 +6,7 @@ function Header() {
 	return (
 		<header>
 			<h1>{title}</h1>
+
 			<p>© {year} {brand}</p>
 		</header>
 	)

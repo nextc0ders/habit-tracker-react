@@ -8,6 +8,8 @@ function HabitItem({ habit, onToggle }) {
 	const doneToday = habit.completedDates.includes(today)
 	const streak = getStreak(habit.completedDates)
 
+	const check_icon = <box-icon name='check' color="var(--success)"></box-icon>
+	const x_icon = <box-icon name='x' color="#fa5c88"></box-icon>
 
 	return (
 		<li>
@@ -15,7 +17,7 @@ function HabitItem({ habit, onToggle }) {
 				onClick={() => onToggle(habit.id)}
 				style={{ cursor: 'pointer' }}
 			>
-				{habit.completedDates.includes(today) ? '✅' : '❌'}
+				{habit.completedDates.includes(today) ? check_icon : x_icon}
 				{habit.title}
 				{streak > 0 && <span>🔥 {streak}</span>}
 			</div>
@@ -23,7 +25,7 @@ function HabitItem({ habit, onToggle }) {
 			<div style={{ display: 'flex', gap: 4 }}>
 				{days.map(day => (
 					<span key={day}>
-						{habit.completedDates.includes(day) ? '✅' : '❌'}
+						{habit.completedDates.includes(day) ? check_icon : x_icon}
 					</span>
 				))}
 			</div>
