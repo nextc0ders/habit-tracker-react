@@ -1,7 +1,11 @@
 import Header from './components/Header'
-import HabitList from './components/HabitList'
-import ThemeFloatingToggle from './components/ThemeFloatingToggle'
 import { useState, useEffect } from 'react'
+import { Routes, Route } from "react-router-dom";
+import HabitsPage from './pages/HabitsPage';
+import StatsPage from './pages/StatsPage';
+import AboutPage from './pages/AboutPage';
+import SettingsPage from './pages/SettingsPage';
+import Footer from './components/Footer/Footer'
 
 function App() {
 
@@ -56,19 +60,29 @@ function App() {
 	return (
 		<div>
 			<Header />
-			<ThemeFloatingToggle />
 
-			<form onSubmit={handleSubmit}>
-				<input
-					type="text"
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
-					placeholder="Новая привычка"
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<HabitsPage
+							habits={habits}
+							title={title}
+							setTitle={setTitle}
+							onToggle={toggleHabit}
+							onSubmit={handleSubmit}
+						/>
+					}
 				/>
-				<button type="submit">Добавить</button>
-			</form>
 
-			<HabitList habits={habits} onToggle={toggleHabit} />
+				<Route path="/stats" element={<StatsPage habits={habits} />} />
+
+				<Route path="/about" element={<AboutPage />} />
+
+				<Route path="/settings" element={<SettingsPage />} />
+			</Routes>
+
+			<Footer />
 		</div>
 	)
 }
