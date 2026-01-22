@@ -5,7 +5,7 @@ function Header() {
 
 	return (
 		<header>
-			<h1>{title}</h1>
+			<div className='Logo'>{title}</div>
 
 			<p>© {year} {brand}</p>
 		</header>

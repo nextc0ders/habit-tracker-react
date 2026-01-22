@@ -4,13 +4,16 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import 'boxicons'
 import { ThemeProvider } from './context/ThemeContext'
+import { HabitsProvider } from './context/HabitsContext.jsx'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
 		<BrowserRouter>
 			<ThemeProvider>
-				<App />
+				<HabitsProvider>
+					<App />
+				</HabitsProvider>
 			</ThemeProvider>
 		</BrowserRouter>
 	</StrictMode>,

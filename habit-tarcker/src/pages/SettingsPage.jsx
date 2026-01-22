@@ -1,13 +1,14 @@
 import ThemeFloatingToggle from '../components/ThemeFloatingToggle'
 
 
+
 function SettingsPage() {
 	return (
-		<div>
-			<h2>Настройки</h2>
+		<section>
+			<h1>Настройки</h1>
 			<p>Скоро будут настройки ⚙️</p>
 			<ThemeFloatingToggle />
-		</div>
+		</section>
 	)
 }
 

@@ -59,7 +59,7 @@ header {
 	margin-bottom: 24px;
 }
 
-header h1 {
+header .Logo {
 	font-size: 2rem;
 	font-weight: 700;
 }

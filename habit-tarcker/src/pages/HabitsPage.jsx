@@ -1,9 +1,23 @@
 import HabitList from '../components/HabitList'
+import { useHabits } from '../context/HabitsContext'
 
-function HabitsPage({ habits, title, setTitle, onToggle, onSubmit }) {
+function HabitsPage() {
+
+	const {
+		habits,
+		title,
+		setTitle,
+		toggleHabit,
+		addHabit
+	} = useHabits()
+
 	return (
-		<div>
-			<form onSubmit={onSubmit}>
+		<>
+			<h1>Мои привычки</h1>
+			<form onSubmit={(e) => {
+				e.preventDefault()
+				addHabit()
+			}}>
 				<input
 					type="text"
 					value={title}
@@ -13,8 +27,19 @@ function HabitsPage({ habits, title, setTitle, onToggle, onSubmit }) {
 				<button type="submit">Добавить</button>
 			</form>
 
-			<HabitList habits={habits} onToggle={onToggle} />
-		</div>
+			{habits.map(habit => (
+				<div key={habit.id}>
+					<input
+						type='checkbox'
+						checked={habit.completedDates.includes(
+							new Date().toISOString().slice(0, 10)
+						)}
+						onChange={() => toggleHabit(habit.id)}
+					/>
+					{habit.title}
+				</div>
+			))}
+		</>
 	)
 }
 

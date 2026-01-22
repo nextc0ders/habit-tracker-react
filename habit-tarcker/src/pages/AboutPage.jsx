@@ -1,9 +1,9 @@
 function AboutPage() {
 	return (
-		<div>
-			<h2>О проекте</h2>
+		<section>
+			<h1>О проекте</h1>
 			<p>Учебный Habit Tracker на React</p>
-		</div>
+		</section>
 	)
 }
 
