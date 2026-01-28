@@ -229,3 +229,29 @@ li.completed span {
 		width: 100%;
 	}
 }
+
+
+
+/* calendar */
+.calendar {
+	margin-top: 1em;
+}
+.calendar-grid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 6px;
+	margin-top: 10px;
+}
+.calendar-day {
+	padding: 8px 0;
+	text-align: center;
+	border-radius: 8px;
+	border: 1px solid var(--border);
+	font-size: .9rem;
+	background: var(--card);
+}
+.calendar-day.done {
+	background: var(--success);
+	color: white;
+	font-weight: 600;
+}
