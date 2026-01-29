@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useHabits } from '../context/HabitsContext'
 import HabitCalendar from '../components/Calendar/HabitCalendar'
+import HabitLineChart from '../components/Calendar/HabitLineChart'
+import { calculateStreak } from '../utils/calculateStreak'
 
 
 function StatsPage() {
@@ -8,6 +10,9 @@ function StatsPage() {
 
 	const [selectedId, setSelectedId] = useState('')
 	const selectedHabit = habits.find(habit => habit.id === selectedId)
+	const streak = selectedHabit
+		? calculateStreak(selectedHabit.completedDates)
+		: 0
 
 	const total = habits.length
 	const completedToday = habits.filter(habit =>
@@ -56,8 +61,10 @@ function StatsPage() {
 				{selectedHabit && (
 					<div className='habit-stats'>
 						<h2>{selectedHabit.title}</h2>
-
+						<p>🔥 Дни подряд: {streak}</p>
+						
 						<HabitCalendar completedDates={selectedHabit.completedDates}/>
+						<HabitLineChart completedDates={selectedHabit.completedDates}/>
 					</div>
 				)}
 	

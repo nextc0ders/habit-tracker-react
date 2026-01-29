@@ -1,3 +1,5 @@
+import './Header.css'
+
 function Header() {
 	const title = 'Трекер Привычек'
 	const year = new Date().getFullYear()
